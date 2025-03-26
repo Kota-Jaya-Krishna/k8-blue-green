@@ -30,4 +30,8 @@ spec:
       containers:
       - name: expense
         image: jayakrishna1993/backend:1.0.0
+        envFrom:
+        - configMapRef:
+            name: backend
+
 
