@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  namespace: expense
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: >
+      arn:aws:acm:us-east-1:688567281358:certificate/4b492412-5150-42a0-a0b4-1c5c827a5e07
+    alb.ingress.kubernetes.io/group.name: joindeveops
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "expense-dev.learndevopsacademy.online"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
